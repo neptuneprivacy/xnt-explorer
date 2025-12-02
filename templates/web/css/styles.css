@@ -1,35 +1,54 @@
 /* override color for light color scheme (Default) */
 /* Can be forced with data-theme="light" */
+/* LIGHT MODE OVERRIDE */
 [data-theme=light],
 :root:not([data-theme=dark]) {
-    --pico-color: rgb(0, 115, 115);
-    --pico-h1-color: var(--pico-color);
-    --pico-h2-color: var(--pico-color);
-    --pico-h3-color: var(--pico-color);
-    --pico-h4-color: var(--pico-color);
-    --pico-h5-color: var(--pico-color);
-    --pico-h6-color: var(--pico-color);
-    --pico-accordion-open-summary-color: var(--pico-color);
+  --pico-color: rgb(59, 64, 167);
+  --pico-h1-color: var(--pico-color);
+  --pico-h2-color: var(--pico-color);
+  --pico-h3-color: var(--pico-color);
+  --pico-h4-color: var(--pico-color);
+  --pico-h5-color: var(--pico-color);
+  --pico-h6-color: var(--pico-color);
+  --pico-accordion-open-summary-color: var(--pico-color);
+
+  --pico-primary: rgb(59, 64, 167);
+  --pico-primary-background: rgb(59, 64, 167);
+  --pico-primary-hover: rgb(49, 54, 150);
+  --pico-primary-hover-background: rgb(39, 54, 140);
+  --pico-primary-background-hover: rgb(79, 84, 150);
+  --pico-primary-focus: rgba(59, 64, 167, 0.4);
+  --pico-primary-inverse: #fff;
+
+}
+
+a {
+  text-decoration-color: var(--pico-primary);
+}
+
+a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--pico-primary);
 }
 
 /* override color for dark color scheme (Auto) */
 /* Automatically enabled if user has Dark mode enabled */
 @media only screen and (prefers-color-scheme: dark) {
     :root:not([data-theme]) {
-    --pico-color: cyan;
+    --pico-color: rgb(79, 94, 197);
     --pico-h1-color: var(--pico-color);
     --pico-h2-color: var(--pico-color);
     --pico-h3-color: var(--pico-color);
     --pico-h4-color: var(--pico-color);
     --pico-h5-color: var(--pico-color);
-    --pico-h6-color: var(--pico-color);    }
+    --pico-h6-color: var(--pico-color);    
     --pico-accordion-open-summary-color: var(--pico-color);
 }
 
 /* override color for dark color scheme (Forced) */
 /* Enabled if forced with data-theme="dark" */
 [data-theme=dark] {
-    --pico-color: cyan;
+    --pico-color:rgb(79, 94, 197);
     --pico-h1-color: var(--pico-color);
     --pico-h2-color: var(--pico-color);
     --pico-h3-color: var(--pico-color);

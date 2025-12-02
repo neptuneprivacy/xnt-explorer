@@ -4,7 +4,7 @@ use axum::extract::State;
 use axum::response::Html;
 use axum::response::Response;
 use html_escaper::Escape;
-use neptune_cash::api::export::BlockHeight;
+use neptune_privacy::api::export::BlockHeight;
 use tarpc::context;
 
 use crate::html::page::not_found::not_found_html_response;

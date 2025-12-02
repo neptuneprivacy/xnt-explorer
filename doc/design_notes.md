@@ -1,4 +1,4 @@
-# Neptune Block Explorer Design notes
+# XNT Block Explorer Design notes
 
 ## Initial functionality
 
@@ -13,7 +13,7 @@
 * block_info
 * utxo_info
 
-## Neptune RPC calls to support Block Explorer
+## XNT RPC calls to support Block Explorer
 * tip_info
 * block_info
 * utxo_info
@@ -49,8 +49,8 @@ GUI Server is built with:
 * [boilerplate](https://crates.io/crates/boilerplate) for templates with embedded rust
 * [pico-css](https://picocss.com/) for responsive light/dark themes, js free.
 
-For simplicity and efficiency, the GUI Server calls neptune-core APIs directly
-rather than calling the neptune-explorer RPC APIs over http or internally.
+For simplicity and efficiency, the GUI Server calls xnt-core APIs directly
+rather than calling the xnt-explorer RPC APIs over http or internally.
 
 ## Client/Server communication
 

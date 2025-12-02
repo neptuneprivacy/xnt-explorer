@@ -7,8 +7,8 @@ use axum::response::Html;
 use axum::response::Response;
 use html_escaper::Escape;
 use html_escaper::Trusted;
-use neptune_cash::api::export::Tip5;
-use neptune_cash::prelude::tasm_lib::prelude::Digest;
+use neptune_privacy::api::export::Tip5;
+use neptune_privacy::prelude::tasm_lib::prelude::Digest;
 use tarpc::context;
 
 use crate::html::component::header::HeaderHtml;

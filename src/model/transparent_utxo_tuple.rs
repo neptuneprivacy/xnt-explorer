@@ -1,8 +1,8 @@
-use neptune_cash::api::export::AdditionRecord;
-use neptune_cash::api::export::Digest;
-use neptune_cash::api::export::TransparentInput;
-use neptune_cash::api::export::Utxo;
-use neptune_cash::api::export::UtxoTriple;
+use neptune_privacy::api::export::AdditionRecord;
+use neptune_privacy::api::export::Digest;
+use neptune_privacy::api::export::TransparentInput;
+use neptune_privacy::api::export::Utxo;
+use neptune_privacy::api::export::UtxoTriple;
 
 #[derive(Debug, Clone)]
 pub struct TransparentUtxoTuple {

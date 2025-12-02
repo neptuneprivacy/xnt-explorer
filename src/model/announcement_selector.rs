@@ -1,10 +1,10 @@
 use std::fmt::Display;
 use std::str::FromStr;
 
-use neptune_cash::api::export::BlockHeight;
-use neptune_cash::prelude::tasm_lib::prelude::Digest;
-use neptune_cash::protocol::consensus::block::block_selector::BlockSelector;
-use neptune_cash::protocol::consensus::block::block_selector::BlockSelectorLiteral;
+use neptune_privacy::api::export::BlockHeight;
+use neptune_privacy::prelude::tasm_lib::prelude::Digest;
+use neptune_privacy::protocol::consensus::block::block_selector::BlockSelector;
+use neptune_privacy::protocol::consensus::block::block_selector::BlockSelectorLiteral;
 use serde::de::Error;
 use serde::Deserialize;
 use serde::Deserializer;
@@ -35,13 +35,13 @@ pub enum AnnouncementSelectorParseError {
     #[error("error parsing index for announcement in block {0}: {1}")]
     HeightIndex(BlockHeight, std::num::ParseIntError),
     #[error("error parsing digest: {0}")]
-    BlockDigest(neptune_cash::prelude::twenty_first::error::TryFromHexDigestError),
+    BlockDigest(neptune_privacy::prelude::twenty_first::error::TryFromHexDigestError),
     #[error("error parsing index for announcement in block {0}: {1}")]
     DigestIndex(Digest, std::num::ParseIntError),
     #[error("error parsing block-height-or-digest: {0} / {1}")]
     HeightNorDigest(
         std::num::ParseIntError,
-        neptune_cash::prelude::twenty_first::error::TryFromHexDigestError,
+        neptune_privacy::prelude::twenty_first::error::TryFromHexDigestError,
     ),
     #[error("error parsing index for block-height-or-digest {0}: {1}")]
     HeightOrDigestIndex(BlockSelector, std::num::ParseIntError),

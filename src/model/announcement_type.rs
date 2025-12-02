@@ -1,6 +1,6 @@
-use neptune_cash::api::export::Announcement;
-use neptune_cash::api::export::TransparentTransactionInfo;
-use neptune_cash::prelude::triton_vm::prelude::BFieldElement;
+use neptune_privacy::api::export::Announcement;
+use neptune_privacy::api::export::TransparentTransactionInfo;
+use neptune_privacy::prelude::triton_vm::prelude::BFieldElement;
 
 #[derive(Debug, Clone)]
 pub enum AnnouncementType {

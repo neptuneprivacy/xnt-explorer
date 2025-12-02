@@ -7,18 +7,18 @@ use chrono::DateTime;
 use chrono::TimeDelta;
 use chrono::Utc;
 use clap::Parser;
-use neptune_cash::api::export::Announcement;
-use neptune_cash::api::export::Network;
-use neptune_cash::application::config::data_directory::DataDirectory;
-use neptune_cash::application::rpc::auth;
-use neptune_cash::application::rpc::server::error::RpcError;
-use neptune_cash::application::rpc::server::RPCClient;
-use neptune_cash::application::rpc::server::RpcResult;
-use neptune_cash::prelude::tasm_lib::prelude::Digest;
-use neptune_cash::protocol::consensus::block::block_height::BlockHeight;
-use neptune_cash::protocol::consensus::block::block_info::BlockInfo;
-use neptune_cash::protocol::consensus::block::block_selector::BlockSelector;
-use neptune_cash::util_types::mutator_set::addition_record::AdditionRecord;
+use neptune_privacy::api::export::Announcement;
+use neptune_privacy::api::export::Network;
+use neptune_privacy::application::config::data_directory::DataDirectory;
+use neptune_privacy::application::rpc::auth;
+use neptune_privacy::application::rpc::server::error::RpcError;
+use neptune_privacy::application::rpc::server::RPCClient;
+use neptune_privacy::application::rpc::server::RpcResult;
+use neptune_privacy::prelude::tasm_lib::prelude::Digest;
+use neptune_privacy::protocol::consensus::block::block_height::BlockHeight;
+use neptune_privacy::protocol::consensus::block::block_info::BlockInfo;
+use neptune_privacy::protocol::consensus::block::block_selector::BlockSelector;
+use neptune_privacy::util_types::mutator_set::addition_record::AdditionRecord;
 use tarpc::client;
 use tarpc::context;
 use tarpc::tokio_serde::formats::Json as RpcJson;
@@ -146,8 +146,8 @@ impl AuthenticatedClient {
         #[cfg(feature = "mock")]
         if std::env::var(MOCK_KEY).is_ok() {
             use blake3::Hasher;
-            use neptune_cash::api::export::TransparentTransactionInfo;
-            use neptune_cash::prelude::triton_vm::prelude::BFieldElement;
+            use neptune_privacy::api::export::TransparentTransactionInfo;
+            use neptune_privacy::prelude::triton_vm::prelude::BFieldElement;
             use rand::rngs::StdRng;
             use rand::Rng;
             use rand::SeedableRng;
@@ -249,7 +249,7 @@ impl AuthenticatedClient {
     }
 }
 
-/// generates RPCClient, for querying neptune-core RPC server.
+/// generates RPCClient, for querying xnt-core RPC server.
 pub async fn gen_authenticated_rpc_client() -> Result<AuthenticatedClient, anyhow::Error> {
     let client = gen_rpc_client().await?;
 
@@ -267,9 +267,9 @@ pub async fn gen_authenticated_rpc_client() -> Result<AuthenticatedClient, anyho
     })
 }
 
-/// generates RPCClient, for querying neptune-core RPC server.
+/// generates RPCClient, for querying xnt-core RPC server.
 pub async fn gen_rpc_client() -> Result<RPCClient, anyhow::Error> {
-    // Create connection to neptune-core RPC server
+    // Create connection to xnt-core RPC server
     let args: Config = Config::parse();
     let server_socket = SocketAddr::new(
         std::net::IpAddr::V4(Ipv4Addr::LOCALHOST),
@@ -278,7 +278,7 @@ pub async fn gen_rpc_client() -> Result<RPCClient, anyhow::Error> {
     let transport = tarpc::serde_transport::tcp::connect(server_socket, RpcJson::default)
         .await
         .with_context(|| {
-            format!("Failed to connect to neptune-core rpc service at {server_socket}")
+            format!("Failed to connect to xnt-core rpc service at {server_socket}")
         })?;
     Ok(RPCClient::new(client::Config::default(), transport).spawn())
 }
@@ -318,7 +318,7 @@ async fn get_cookie_hint(
     }
 }
 
-/// a tokio task that periodically pings neptune-core rpc server to ensure the
+/// a tokio task that periodically pings xnt-core rpc server to ensure the
 /// connection is still alive and/or attempts to re-establish connection.
 ///
 /// If not connected, a single connection attempt is made for each timer iteration.
@@ -332,7 +332,7 @@ pub async fn watchdog(app_state: AppState) {
     let mut since = chrono::offset::Utc::now();
     let watchdog_secs = app_state.load().config.neptune_rpc_watchdog_secs;
 
-    debug!("neptune-core rpc watchdog started");
+    debug!("xnt-core rpc watchdog started");
 
     loop {
         tokio::time::sleep(tokio::time::Duration::from_secs(watchdog_secs)).await;
@@ -355,7 +355,7 @@ pub async fn watchdog(app_state: AppState) {
             let now = chrono::offset::Utc::now();
             let duration = now.signed_duration_since(since);
             let app_duration = now.signed_duration_since(app_started);
-            let body = NeptuneRpcAlertEmail {
+            let body = XntRpcAlertEmail {
                 config,
                 was_connected,
                 now_connected,
@@ -367,7 +367,7 @@ pub async fn watchdog(app_state: AppState) {
             }
             .to_string();
 
-            let msg = format!("alert: neptune-core rpc connection status change: previous: {was_connected}, now: {now_connected}");
+            let msg = format!("alert: xnt-core rpc connection status change: previous: {was_connected}, now: {now_connected}");
             match now_connected {
                 true => info!("{msg}"),
                 false => warn!("{msg}"),
@@ -388,8 +388,8 @@ pub async fn watchdog(app_state: AppState) {
 }
 
 #[derive(boilerplate::Boilerplate)]
-#[boilerplate(filename = "email/neptune_rpc_alert.txt")]
-pub struct NeptuneRpcAlertEmail {
+#[boilerplate(filename = "email/xnt_rpc_alert.txt")]
+pub struct XntRpcAlertEmail {
     config: Config,
     was_connected: bool,
     now_connected: bool,
@@ -407,8 +407,8 @@ pub enum BlockchainState {
 }
 
 #[derive(boilerplate::Boilerplate)]
-#[boilerplate(filename = "email/neptune_blockchain_alert.txt")]
-pub struct NeptuneBlockchainAlertEmail {
+#[boilerplate(filename = "email/xnt_blockchain_alert.txt")]
+pub struct XntBlockchainAlertEmail {
     config: Config,
     last_height: BlockHeight,
     height: BlockHeight,
@@ -421,7 +421,7 @@ pub struct NeptuneBlockchainAlertEmail {
     duration: TimeDelta,
 }
 
-/// a tokio task that periodically pings neptune-core rpc server to ensure
+/// a tokio task that periodically pings xnt-core rpc server to ensure
 /// the blockchain keeps growing and has not stalled or shortened somehow.
 ///
 /// If not connected, a single connection attempt is made for each timer iteration.
@@ -440,7 +440,7 @@ pub async fn blockchain_watchdog(app_state: AppState) {
     let mut since = chrono::offset::Utc::now();
     let watchdog_secs = app_state.load().config.neptune_blockchain_watchdog_secs;
 
-    debug!("neptune-core blockchain watchdog started");
+    debug!("xnt-core blockchain watchdog started");
 
     loop {
         let result = {
@@ -475,7 +475,7 @@ pub async fn blockchain_watchdog(app_state: AppState) {
                 let now = chrono::offset::Utc::now();
                 let duration = now.signed_duration_since(since);
                 let app_duration = now.signed_duration_since(app_started);
-                let body = NeptuneBlockchainAlertEmail {
+                let body = XntBlockchainAlertEmail {
                     config,
                     last_height,
                     height,
@@ -489,7 +489,7 @@ pub async fn blockchain_watchdog(app_state: AppState) {
                 }
                 .to_string();
 
-                let msg = format!("alert: neptune-core blockchain status change: previous: {last_blockchain_state}, now: {blockchain_state}.  prev_height: {last_height}, now_height: {height}");
+                let msg = format!("alert: xnt-core blockchain status change: previous: {last_blockchain_state}, now: {blockchain_state}.  prev_height: {last_height}, now_height: {height}");
                 match blockchain_state {
                     BlockchainState::Normal => info!("{msg}"),
                     BlockchainState::Warn => warn!("{msg}"),

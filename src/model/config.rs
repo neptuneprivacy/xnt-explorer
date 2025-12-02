@@ -9,7 +9,7 @@
 
 #[readonly::make]
 #[derive(Debug, clap::Parser, Clone)]
-#[clap(name = "neptune-explorer", about = "Neptune Block Explorer")]
+#[clap(name = "xnt-explorer", about = "XNT Block Explorer")]
 #[clap(group(
     clap::ArgGroup::new("value")
         .required(false)
@@ -19,7 +19,7 @@
 ))]
 pub struct Config {
     /// Sets the website name
-    #[clap(long, default_value = "Neptune Explorer", value_name = "site-name")]
+    #[clap(long, default_value = "XNT Explorer", value_name = "site-name")]
     pub site_name: String,
 
     /// Sets the website domain, eg 'explorer.mydomain.com'. used for alert emails, etc.
@@ -30,11 +30,11 @@ pub struct Config {
     #[clap(long, default_value = "3000", value_name = "port")]
     pub listen_port: u16,
 
-    /// Sets the neptune-core rpc server address to connect to.
-    #[clap(long, default_value = "9799", value_name = "port")]
+    /// Sets the xnt-core rpc server address to connect to.
+    #[clap(long, default_value = "9899", value_name = "port")]
     pub neptune_rpc_port: u16,
 
-    /// Sets interval in seconds to ping neptune-core rpc connection
+    /// Sets interval in seconds to ping xnt-core rpc connection
     #[clap(long, default_value = "10", value_name = "seconds")]
     pub neptune_rpc_watchdog_secs: u64,
 

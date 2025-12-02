@@ -8,11 +8,11 @@ use axum::response::Html;
 use axum::response::Response;
 use html_escaper::Escape;
 use html_escaper::Trusted;
-use neptune_cash::api::export::BlockHeight;
-use neptune_cash::prelude::tasm_lib::prelude::Digest;
-use neptune_cash::prelude::triton_vm::prelude::BFieldCodec;
-use neptune_cash::prelude::twenty_first::tip5::Tip5;
-use neptune_cash::util_types::mutator_set::addition_record::AdditionRecord;
+use neptune_privacy::api::export::BlockHeight;
+use neptune_privacy::prelude::tasm_lib::prelude::Digest;
+use neptune_privacy::prelude::triton_vm::prelude::BFieldCodec;
+use neptune_privacy::prelude::twenty_first::tip5::Tip5;
+use neptune_privacy::util_types::mutator_set::addition_record::AdditionRecord;
 use tarpc::context;
 
 use crate::html::component::header::HeaderHtml;

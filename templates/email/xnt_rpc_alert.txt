@@ -1,33 +1,33 @@
 %% if self.now_connected {
-**** ALERT: Neptune RPC Connection Restored ****
+**** ALERT: XNT RPC Connection Restored ****
 %% } else {
-**** ALERT: Neptune RPC Connection Lost ****
+**** ALERT: XNT RPC Connection Lost ****
 %% }
 
 site: {{self.config.site_name}} at {{self.config.site_domain}}:{{self.config.listen_port}}
 
 -- Details --
 
-Event: Neptune RPC Connection Status Change.
+Event: XNT RPC Connection Status Change.
 
 Event Time: {{self.now.to_rfc3339()}}
 
 Event Description:
 
 %% if self.now_connected {
-The neptune-explorer application has re-established connection with the
-neptune-core rpc server.  Service is restored.
+The xnt-explorer application has re-established connection with the
+xnt-core rpc server.  Service is restored.
 %% } else {
-The neptune-explorer application is unable to connect to the neptune-core rpc
+The xnt-explorer application is unable to connect to the xnt-core rpc
 server.  Website users are experiencing a site-outage.
 %% }
 
 New Status:
-    Neptune RPC Connected: {{self.now_connected}}
+    XNT RPC Connected: {{self.now_connected}}
     Now: {{self.now.to_rfc3339()}}
 
 Previous Status:
-    Neptune RPC Connected: {{self.was_connected}}
+    XNT RPC Connected: {{self.was_connected}}
     Since: {{self.since.to_rfc3339()}}
     Duration: {{self.duration}}
 
@@ -35,7 +35,7 @@ Block Explorer Uptime:
     Started: {{self.app_started.to_rfc3339()}}
     Duration: {{self.app_duration}} seconds
 
-Neptune-core RPC:
+XNT-core RPC:
     Host: {{self.config.site_domain}}   (localhost)
     Port: {{self.config.neptune_rpc_port}}
 
@@ -46,8 +46,8 @@ Recommended action:
 
     No further corrective action should be necessary.
 %% } else {
-    Review if neptune-core is running and accessible.  Restart if necessary.
+    Review if xnt-core is running and accessible.  Restart if necessary.
 
-    When neptune-core becomes available the block-explorer should automatically
+    When xnt-core becomes available the block-explorer should automatically
     re-establish the connection within {{self.config.neptune_rpc_watchdog_secs}} seconds.
 %% }

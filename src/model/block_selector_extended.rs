@@ -1,11 +1,11 @@
 use std::num::ParseIntError;
 use std::str::FromStr;
 
-use neptune_cash::api::export::BlockHeight;
-use neptune_cash::api::export::Digest;
-use neptune_cash::prelude::triton_vm::prelude::BFieldElement;
-use neptune_cash::protocol::consensus::block::block_selector::BlockSelector;
-use neptune_cash::protocol::consensus::block::block_selector::BlockSelectorParseError;
+use neptune_privacy::api::export::BlockHeight;
+use neptune_privacy::api::export::Digest;
+use neptune_privacy::prelude::triton_vm::prelude::BFieldElement;
+use neptune_privacy::protocol::consensus::block::block_selector::BlockSelector;
+use neptune_privacy::protocol::consensus::block::block_selector::BlockSelectorParseError;
 use serde::de::Error;
 use serde::Deserialize;
 use serde::Deserializer;

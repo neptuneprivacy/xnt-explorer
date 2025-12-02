@@ -7,7 +7,7 @@ use axum::response::Html;
 use axum::response::Response;
 use html_escaper::Escape;
 use html_escaper::Trusted;
-use neptune_cash::protocol::consensus::block::block_info::BlockInfo;
+use neptune_privacy::protocol::consensus::block::block_info::BlockInfo;
 use tarpc::context;
 
 use crate::html::component::header::HeaderHtml;

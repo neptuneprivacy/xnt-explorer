@@ -2,22 +2,22 @@ use anyhow::Context;
 use axum::routing::get;
 use axum::routing::post;
 use axum::routing::Router;
-use neptune_explorer::alert_email;
-use neptune_explorer::html::page::announcement::announcement_page;
-use neptune_explorer::html::page::block::block_page;
-use neptune_explorer::html::page::not_found::not_found_html_fallback;
-use neptune_explorer::html::page::redirect_qs_to_path::redirect_query_string_to_path;
-use neptune_explorer::html::page::root::root;
-use neptune_explorer::html::page::utxo::utxo_page;
-use neptune_explorer::model::app_state::AppState;
-use neptune_explorer::neptune_rpc;
-use neptune_explorer::rpc::block_digest::block_digest;
-use neptune_explorer::rpc::block_info::block_info;
-use neptune_explorer::rpc::circulating_supply::circulating_supply;
-use neptune_explorer::rpc::pow_puzzle::pow_puzzle;
-use neptune_explorer::rpc::provide_pow_solution::provide_pow_solution;
-use neptune_explorer::rpc::total_supply::total_supply;
-use neptune_explorer::rpc::utxo_digest::utxo_digest;
+use xnt_explorer::alert_email;
+use xnt_explorer::html::page::announcement::announcement_page;
+use xnt_explorer::html::page::block::block_page;
+use xnt_explorer::html::page::not_found::not_found_html_fallback;
+use xnt_explorer::html::page::redirect_qs_to_path::redirect_query_string_to_path;
+use xnt_explorer::html::page::root::root;
+use xnt_explorer::html::page::utxo::utxo_page;
+use xnt_explorer::model::app_state::AppState;
+use xnt_explorer::xnt_rpc;
+use xnt_explorer::rpc::block_digest::block_digest;
+use xnt_explorer::rpc::block_info::block_info;
+use xnt_explorer::rpc::circulating_supply::circulating_supply;
+use xnt_explorer::rpc::pow_puzzle::pow_puzzle;
+use xnt_explorer::rpc::provide_pow_solution::provide_pow_solution;
+use xnt_explorer::rpc::total_supply::total_supply;
+use xnt_explorer::rpc::utxo_digest::utxo_digest;
 use tower_http::services::ServeDir;
 use tracing::info;
 use tracing_subscriber::EnvFilter;
@@ -26,7 +26,7 @@ use tracing_subscriber::EnvFilter;
 async fn main() -> Result<(), anyhow::Error> {
     let filter = EnvFilter::from_default_env()
         // Set the base level when not matched by other directives to INFO.
-        .add_directive("neptune_explorer=info".parse()?);
+        .add_directive("xnt_explorer=info".parse()?);
 
     tracing_subscriber::fmt().with_env_filter(filter).init();
 
@@ -42,8 +42,8 @@ async fn main() -> Result<(), anyhow::Error> {
     // this will log warnings if smtp not configured or mis-configured.
     alert_email::check_alert_params();
 
-    tokio::task::spawn(neptune_rpc::watchdog(app_state.clone()));
-    tokio::task::spawn(neptune_rpc::blockchain_watchdog(app_state));
+    tokio::task::spawn(xnt_rpc::watchdog(app_state.clone()));
+    tokio::task::spawn(xnt_rpc::blockchain_watchdog(app_state));
 
     info!("Running on http://localhost:{port}");
 

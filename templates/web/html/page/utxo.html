@@ -66,7 +66,7 @@
                 {% if utxo_info.utxo().has_native_currency() { %}
                 <tr>
                     <td>Amount:</td>
-                    <td>{{utxo_info.utxo().get_native_currency_amount().display_n_decimals(5)}} NPT</td>
+                    <td>{{utxo_info.utxo().get_native_currency_amount().display_n_decimals(5)}} XNT</td>
                 </tr>
                 {% } %}
                 {% if let Some(release_date) = utxo_info.utxo().release_date() { %}
