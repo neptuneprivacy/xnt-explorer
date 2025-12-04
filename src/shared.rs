@@ -1,7 +1,6 @@
 use neptune_privacy::api::export::BlockHeight;
 use neptune_privacy::api::export::NativeCurrencyAmount;
 use neptune_privacy::protocol::consensus::block::block_height::BLOCKS_PER_GENERATION;
-use neptune_privacy::protocol::consensus::block::block_height::NUM_BLOCKS_SKIPPED_BECAUSE_REBOOT;
 use neptune_privacy::protocol::consensus::block::Block;
 use neptune_privacy::protocol::consensus::block::PREMINE_MAX_SIZE;
 
@@ -13,7 +12,7 @@ pub(crate) fn monetary_supplies(
 ) -> (NativeCurrencyAmount, NativeCurrencyAmount) {
     let block_height: u64 = block_height.into();
     let generation_0_subsidy = Block::block_subsidy(BlockHeight::genesis().next());
-    let effective_block_height = block_height + NUM_BLOCKS_SKIPPED_BECAUSE_REBOOT;
+    let effective_block_height = block_height;
     let (num_generations, num_blocks_in_curr_gen): (u64, u32) = (
         effective_block_height / BLOCKS_PER_GENERATION,
         (effective_block_height % BLOCKS_PER_GENERATION)

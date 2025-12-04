@@ -1932,7 +1932,8 @@ dependencies = [
 
 [[package]]
 name = "neptune-privacy"
-version = "0.5.0"
+version = "0.1.0"
+source = "git+https://github.com/neptuneprivacy/xnt-core#6adcf1e92e7ae0103b66560b3954a343f009c504"
 dependencies = [
  "aead",
  "aes-gcm",
@@ -4526,7 +4527,8 @@ dependencies = [
 
 [[package]]
 name = "xnt-rpc-macros"
-version = "0.5.0"
+version = "0.1.0"
+source = "git+https://github.com/neptuneprivacy/xnt-core#6adcf1e92e7ae0103b66560b3954a343f009c504"
 dependencies = [
  "convert_case",
  "quote",
