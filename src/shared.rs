@@ -21,7 +21,7 @@ pub(crate) fn monetary_supplies(
     );
 
     let mut liquid_supply = PREMINE_MAX_SIZE;
-    let mut liquid_subsidy = generation_0_subsidy.half();
+    let mut liquid_subsidy = generation_0_subsidy;
     let mut total_supply = PREMINE_MAX_SIZE;
     let blocks_per_generation: u32 = BLOCKS_PER_GENERATION
         .try_into()
@@ -29,7 +29,7 @@ pub(crate) fn monetary_supplies(
     for _ in 0..num_generations {
         liquid_supply += liquid_subsidy.scalar_mul(blocks_per_generation);
         total_supply += liquid_subsidy.scalar_mul(2);
-        liquid_subsidy = liquid_subsidy.half();
+        liquid_subsidy = liquid_subsidy;
     }
 
     let liquid_supply_current_generation = liquid_subsidy.scalar_mul(num_blocks_in_curr_gen);
@@ -41,10 +41,10 @@ pub(crate) fn monetary_supplies(
     // is defined in relation to timestamp and not block heights, so this is
     // only a (good) approximation.
 
-    let mut released_subsidy = generation_0_subsidy.half();
+    let mut released_subsidy = generation_0_subsidy;
     for _ in 1..num_generations {
         liquid_supply += released_subsidy.scalar_mul(blocks_per_generation);
-        released_subsidy = released_subsidy.half();
+        released_subsidy = released_subsidy;
     }
 
     if num_generations > 0 {
