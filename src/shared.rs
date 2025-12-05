@@ -28,13 +28,13 @@ pub(crate) fn monetary_supplies(
         .expect("There are fewer than u32::MAX blocks per generation");
     for _ in 0..num_generations {
         liquid_supply += liquid_subsidy.scalar_mul(blocks_per_generation);
-        total_supply += liquid_subsidy.scalar_mul(2);
+        total_supply += liquid_subsidy;
         liquid_subsidy = liquid_subsidy;
     }
 
     let liquid_supply_current_generation = liquid_subsidy.scalar_mul(num_blocks_in_curr_gen);
     liquid_supply += liquid_supply_current_generation;
-    total_supply += liquid_supply_current_generation.scalar_mul(2);
+    total_supply += liquid_supply_current_generation;
 
     // How much of timelocked miner rewards have been unlocked? Assume that the
     // timelock is exactly one generation long. In reality the timelock is
